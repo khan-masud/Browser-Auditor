@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Advanced browser privacy, security, and tracking resistance benchmarking platform.",
   "type": "module",
-  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js"
