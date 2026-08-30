@@ -64,7 +64,7 @@ function startServer(port) {
 
     if (reqUrl === '/') reqUrl = '/index.html';
 
-    const rootDir = path.resolve(__dirname);
+    const rootDir = path.resolve(__dirname, 'public');
     const safePath = path.normalize(path.join(rootDir, reqUrl));
 
     if (!safePath.toLowerCase().startsWith(rootDir.toLowerCase())) {
