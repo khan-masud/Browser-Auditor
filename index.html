@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browser Auditor — Privacy & Security Benchmarking Engine</title>
+  <meta name="description" content="Advanced, client-side browser privacy, tracking resistance, and security posture auditing engine.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ========================================================= -->
+  <!-- 1. FULL SCREEN LANDING VIEW (HOME PAGE)                   -->
+  <!-- ========================================================= -->
+  <div id="view-landing" class="landing-view">
+    <div class="app-container">
+      <div class="landing-top-bar">
+        <div class="brand-group">
+          <div class="brand-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+          <span class="brand-title">Browser Auditor</span>
+        </div>
+
+        <div>
+          <button class="btn-theme-toggle" aria-label="Toggle Dark / Light Theme" title="Toggle Theme">
+            <span class="theme-icon-container">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Centered Focal Hero -->
+    <div class="app-container landing-hero-container">
+      <div class="landing-center-hero">
+        <div id="landing-browser-badge" class="landing-brand-badge">
+          Detecting browser environment...
+        </div>
+
+        <h1 class="landing-title">Benchmark Your Browser Privacy & Security</h1>
+        <p class="landing-subtitle">Inspect client-side fingerprint entropy, hardware exfiltration, network leaks, and tracking resistance in real time.</p>
+
+        <!-- Big Focal Action Button -->
+        <button id="btn-run-hero" class="btn-run-hero" aria-label="Run Test">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          Run Test
+        </button>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <!-- ========================================================= -->
+  <!-- 2. REPORT VIEW (DATA TABLE MATRIX & BENCHMARK)            -->
+  <!-- ========================================================= -->
+  <div id="view-report" class="report-view">
+
+    <!-- Sticky Main Header in Report View -->
+    <header class="header">
+      <div class="app-container">
+        <div class="header-inner">
+          <div class="brand-group">
+            <div class="brand-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="m9 12 2 2 4-4"/>
+              </svg>
+            </div>
+            <div class="brand-title">Browser Auditor</div>
+            <span id="header-browser-badge" class="landing-brand-badge" style="margin-bottom: 0; padding: 3px 8px; font-size: 0.75rem;">Detecting...</span>
+          </div>
+
+          <div class="header-actions">
+            <button class="btn-theme-toggle" aria-label="Toggle Dark / Light Theme" title="Toggle Theme">
+              <span class="theme-icon-container">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              </span>
+            </button>
+            <button id="btn-run-header" class="btn btn-primary btn-sm" aria-label="Re-run Test">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.5 2v6h-6"/>
+                <path d="M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+              </svg>
+              Re-run Test
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-container">
+
+      <!-- Live Scan Progress Bar -->
+      <div id="scan-progress-wrapper" class="scan-progress-wrapper" role="region" aria-label="Scan Progress">
+        <div class="scan-status-row">
+          <span id="scan-status-text" class="mono">Initializing security engine...</span>
+          <span id="scan-percent-text" class="mono">0%</span>
+        </div>
+        <div class="scan-progress-bar">
+          <div id="scan-progress-fill" class="scan-progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- Executive Score Summary (4-Column Strip with Large Symmetrical Dual Scores) -->
+      <section class="summary-strip" aria-label="Executive Summary">
+        
+        <!-- Card 1: Overall Protection -->
+        <div class="summary-cell">
+          <div class="summary-cell-title-row">
+            <span class="summary-cell-title">Overall Protection</span>
+            <span class="summary-cell-potential-tag">Potential</span>
+          </div>
+          <div class="score-row-split">
+            <div class="score-main-side">
+              <span id="score-grade-val" class="score-number mono" style="color: var(--status-secure);">--</span>
+              <span id="score-overall-num" class="score-max mono" style="margin-left: 6px;">--/100</span>
+            </div>
+            <div id="card-potential-overall" class="score-potential-side">
+              <span class="score-number mono" style="color: var(--status-secure);">--</span>
+              <span class="score-max mono" style="margin-left: 4px;">--/100</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Privacy Index -->
+        <div class="summary-cell">
+          <div class="summary-cell-title-row">
+            <span class="summary-cell-title">Privacy Index</span>
+            <span class="summary-cell-potential-tag">Potential</span>
+          </div>
+          <div class="score-row-split">
+            <div class="score-main-side">
+              <span id="score-privacy-val" class="score-number mono">--</span>
+              <span class="score-max mono">/100</span>
+            </div>
+            <div id="card-potential-privacy" class="score-potential-side">
+              <span class="score-number mono" style="color: var(--status-secure);">--</span>
+              <span class="score-max mono">/100</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Security Index -->
+        <div class="summary-cell">
+          <div class="summary-cell-title-row">
+            <span class="summary-cell-title">Security Index</span>
+            <span class="summary-cell-potential-tag">Potential</span>
+          </div>
+          <div class="score-row-split">
+            <div class="score-main-side">
+              <span id="score-security-val" class="score-number mono">--</span>
+              <span class="score-max mono">/100</span>
+            </div>
+            <div id="card-potential-security" class="score-potential-side">
+              <span class="score-number mono" style="color: var(--status-secure);">--</span>
+              <span class="score-max mono">/100</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Tracker Block Rate -->
+        <div class="summary-cell">
+          <div class="summary-cell-title-row">
+            <span class="summary-cell-title">Tracker Block Rate</span>
+            <span class="summary-cell-potential-tag">Potential</span>
+          </div>
+          <div class="score-row-split">
+            <div class="score-main-side">
+              <span id="score-tracker-val" class="score-number mono" style="color: var(--accent-cyan);">--%</span>
+            </div>
+            <div id="card-potential-tracker" class="score-potential-side">
+              <span class="score-number mono" style="color: var(--status-secure);">100%</span>
+              <span class="potential-delta-pill">uBlock</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- STICKY CATEGORY TAB BAR (STICKY BELOW HEADER ON SCROLL) -->
+      <nav class="sticky-category-tabs-wrapper" id="sticky-category-tabs" aria-label="Category Navigation">
+        <div class="sticky-category-tabs-inner">
+          <button class="tab-nav-btn active" data-category="all">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+              <polyline points="2 17 12 22 22 17"/>
+              <polyline points="2 12 12 17 22 12"/>
+            </svg>
+            All Diagnostics
+          </button>
+          <button class="tab-nav-btn" data-category="fingerprint">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4"/>
+              <path d="M5 19.5C5.5 18 6 15 6 12c0-.7.12-1.37.34-2"/>
+            </svg>
+            Hardware & Fingerprinting
+          </button>
+          <button class="tab-nav-btn" data-category="network">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+            </svg>
+            Network & Connection Leaks
+          </button>
+          <button class="tab-nav-btn" data-category="storage">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/>
+              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+            </svg>
+            Storage & Tracking
+          </button>
+          <button class="tab-nav-btn" data-category="security">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            Security & Sandbox
+          </button>
+        </div>
+      </nav>
+
+      <!-- UNIFIED MODERN AUDIT DATA TABLE (ROW-BASED VIEW) -->
+      <section class="audit-table-card" aria-label="Diagnostic Table">
+        <div class="table-responsive-wrapper">
+          <table class="audit-data-table">
+            <thead>
+              <tr>
+                <th>Audit / Diagnostic Vector</th>
+                <th>Status</th>
+                <th>Risk Level</th>
+                <th>Recommended Action</th>
+                <th style="text-align: right;">Telemetry</th>
+              </tr>
+            </thead>
+            <tbody id="audit-table-body">
+              <!-- Dynamically rendered rows by renderer.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Standard Browser Benchmark Comparison Table (AT THE BOTTOM) -->
+      <section class="benchmark-section" aria-label="Browser Benchmarks">
+        <div class="section-header">
+          <h2>Standard Browser Benchmark Comparison</h2>
+          <p>Comparison of current session configuration against established privacy baselines.</p>
+        </div>
+        <table class="benchmark-table">
+          <thead>
+            <tr>
+              <th>Browser Profile</th>
+              <th>Grade</th>
+              <th>Index Rating</th>
+              <th style="text-align: right;">Score</th>
+            </tr>
+          </thead>
+          <tbody id="benchmark-table-body">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </section>
+
+    </main>
+
+    <!-- Footer & Exporters -->
+    <footer class="footer">
+      <div class="app-container">
+        <div class="footer-inner">
+
+          <div class="footer-actions">
+            <button id="btn-copy-md" class="btn btn-secondary btn-sm" aria-label="Copy Markdown Report">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+              Copy Markdown
+            </button>
+            <button id="btn-export-json" class="btn btn-secondary btn-sm" aria-label="Export Raw JSON">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Export JSON
+            </button>
+            <button id="btn-print-pdf" class="btn btn-secondary btn-sm" aria-label="Print or Save PDF">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"/>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                <rect x="6" y="14" width="12" height="8"/>
+              </svg>
+              Print / PDF
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast-notification" class="toast" role="status" aria-live="polite">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--status-secure)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+    <span id="toast-text" class="mono">Action completed</span>
+  </div>
+
+  <!-- Inline Synchronous Badge Resolver & Fallback -->
+  <script>
+    (function() {
+      try {
+        var ua = navigator.userAgent;
+        var name = 'Web Browser';
+        if (ua.indexOf('Edg/') !== -1) name = 'Microsoft Edge';
+        else if (ua.indexOf('Firefox/') !== -1) name = 'Mozilla Firefox';
+        else if (ua.indexOf('Safari/') !== -1 && ua.indexOf('Chrome/') === -1) name = 'Apple Safari';
+        else if (ua.indexOf('Chrome/') !== -1) name = 'Google Chrome';
+        var badge = document.getElementById('landing-browser-badge');
+        if (badge) badge.textContent = name + ' • ' + (navigator.platform || 'OS');
+      } catch(e){}
+    })();
+  </script>
+
+  <!-- Application Logic (Cache-Busted) -->
+  <script type="module" src="js/app.js?v=2.4"></script>
+</body>
+</html>

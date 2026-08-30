@@ -1,0 +1,27 @@
+{
+  "name": "browser-auditor",
+  "version": "1.0.0",
+  "description": "Advanced browser privacy, security, and tracking resistance benchmarking platform.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "cybersecurity",
+    "browser-fingerprinting",
+    "privacy-audit",
+    "webrtc-leak",
+    "canvas-fingerprint",
+    "benchmarking",
+    "webgl-unmasking",
+    "tracker-blocker-test",
+    "spectre-mitigation",
+    "anti-fingerprinting",
+    "global-privacy-control",
+    "security-scanner"
+  ],
+  "author": "Khan Masud",
+  "license": "MIT"
+}
